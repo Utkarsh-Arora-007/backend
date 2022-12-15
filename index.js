@@ -60,11 +60,8 @@ app.post('/notify', (req, res) => {
 });
 
 app.post('/weatherupdate', async (req, res) => {
-  client_lattitude = req.body.lattitude;
-  client_longitude = req.body.longitude;
-  let params = { lat: client_lattitude , lon: client_longitude};
   try {
-    const result = await weatherapi(params);
+    const result = await weatherapi(req.body);
     console.log(result);
     res.send(result);
   } catch (err) {

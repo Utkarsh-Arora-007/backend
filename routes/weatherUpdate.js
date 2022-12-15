@@ -1,18 +1,13 @@
 const axios = require("axios");
 
 
-
-// .then(function (response) {
-// 	console.log(response.data);
-// }).catch(function (error) {
-// 	console.error(error);
-// });
-
 module.exports = params => {
+    let url = "https://weatherbit-v1-mashape.p.rapidapi.com/";
+    url +=params.queryType;
     const options = {
         method: 'GET',
-        url: 'https://weatherbit-v1-mashape.p.rapidapi.com/current',
-        params: params,
+        url: url,
+        params: params.location,
         headers: {
           'X-RapidAPI-Key': 'bc65df8011msh743163aa8215daap143b8ejsnb48c09086d14',
           'X-RapidAPI-Host': 'weatherbit-v1-mashape.p.rapidapi.com'
