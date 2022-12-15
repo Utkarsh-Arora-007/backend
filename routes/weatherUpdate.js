@@ -9,7 +9,7 @@ module.exports = params => {
         url: url,
         params: params.location,
         headers: {
-          'X-RapidAPI-Key': 'bc65df8011msh743163aa8215daap143b8ejsnb48c09086d14',
+          'X-RapidAPI-Key': '5a065a3659mshb15050009ae4d44p1da3c2jsne642bb6d310e',
           'X-RapidAPI-Host': 'weatherbit-v1-mashape.p.rapidapi.com'
         }
       };
