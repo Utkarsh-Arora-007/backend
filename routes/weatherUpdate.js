@@ -1,6 +1,7 @@
 const axios = require('axios');
 
 module.exports = params => {
+  console.log(params);
   let url = 'https://weatherbit-v1-mashape.p.rapidapi.com/';
   url += params.queryType;
   const options = {
