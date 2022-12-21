@@ -1,45 +1,15 @@
-const express = require('express');
 const schedule = require('node-schedule');
-const app = express();
-var admin = require('firebase-admin');
-var fcm = require('fcm-notification');
-var serviceAccount = require('./privateKey.json');
+const pushNotification = require('./routes/sendNotif');
 const weatherapi = require('./routes/weatherUpdate');
-
-const certPath = admin.credential.cert(serviceAccount);
-var FCM = new fcm(certPath);
-
-const cors = require('cors');
-app.use(cors());
+const express = require('express');
+const app = express();
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-const sendPushNotification = (title, body, client_token) => {
-  try {
-    let message = {
-      android: {
-        notification: {
-          title: title,
-          body: body,
-        },
-        ttl: 10,
-      },
+const cors = require('cors');
+app.use(cors());
 
-      token: client_token,
-    };
-
-    FCM.send(message, function (err, res) {
-      if (err) {
-        throw err;
-      } else {
-        console.log('Successfully sent notification');
-      }
-    });
-  } catch (err) {
-    throw err;
-  }
-};
 const { users } = require('./routes/users');
 app.get('/users', users);
 
@@ -54,7 +24,7 @@ app.post('/notify', (req, res) => {
   schdeuleTime = new Date(req.body.schedule).toISOString();
   schedule.scheduleJob(schdeuleTime, () => {
     for (var i = 0; i < client_token.length; i++)
-      sendPushNotification(title, message, client_token[i]);
+      pushNotification(title, message, client_token[i]);
   });
   res.send({ success: 'notif sent' });
 });
@@ -66,7 +36,32 @@ app.post('/weatherupdate', async (req, res) => {
     res.send(result);
   } catch (err) {
     console.log(err);
-    res.status(500).send({error: err});
+    res.status(500).send({ error: err });
+  }
+});
+
+app.post('/useractivity', (req, res) => {
+  if (req.body.activity == 'logout') {
+    const result = pushNotification(
+      'Session Ended',
+      'You have Logged Out',
+      req.body.token
+    );
+    res.send(result);
+  } else if (req.body.activity == 'login') {
+    const result = pushNotification(
+      'New Session Started',
+      'You have Logged In',
+      req.body.token
+    );
+    res.send(result);
+  } else if (req.body.activity == 'signup') {
+    const result = pushNotification(
+      'Welcome',
+      'Have a Good Day',
+      req.body.token
+    );
+    res.send(result);
   }
 });
 

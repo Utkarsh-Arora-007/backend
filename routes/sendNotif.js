@@ -15,7 +15,6 @@ module.exports  = (title, body, client_token) => {
           },
           ttl: 10,
         },
-  
         token: client_token,
       };
   
