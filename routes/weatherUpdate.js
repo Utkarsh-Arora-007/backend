@@ -8,8 +8,8 @@ module.exports = params => {
     url: url,
     params: params.location,
     headers: {
-      'X-RapidAPI-Key': '54680d66dcmshce45f33e8bfa913p126abejsn8c5c19073558',
-      'X-RapidAPI-Host': 'weatherbit-v1-mashape.p.rapidapi.com',
+      'X-RapidAPI-Key': 'ab08f9872dmsh6b157a941a8d82bp1416cejsn0c42f829801b',
+      'X-RapidAPI-Host': 'weatherbit-v1-mashape.p.rapidapi.com'
     },
   };
   return axios.request(options).then(res => res.data);

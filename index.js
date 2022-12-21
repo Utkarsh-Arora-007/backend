@@ -41,6 +41,7 @@ app.post('/weatherupdate', async (req, res) => {
 });
 
 app.post('/useractivity', (req, res) => {
+  console.log(req.body);
   if (req.body.activity == 'logout') {
     const result = pushNotification(
       'Session Ended',
