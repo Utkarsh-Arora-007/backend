@@ -43,26 +43,26 @@ app.post('/weatherupdate', async (req, res) => {
 app.post('/useractivity', (req, res) => {
   console.log(req.body);
   if (req.body.activity == 'logout') {
-    const result = pushNotification(
+    var result = pushNotification(
       'Session Ended',
       'You have Logged Out',
       req.body.token
     );
     res.send(result);
   } else if (req.body.activity == 'login') {
-    const result = pushNotification(
+    var result = pushNotification(
       'New Session Started',
       'You have Logged In',
       req.body.token
     );
     res.send(result);
   } else if (req.body.activity == 'signup') {
-    const result = pushNotification(
+    var result = pushNotification(
       'Welcome',
       'Have a Good Day',
       req.body.token
     );
-    res.send(result);
+    res.send(1);
   }
 });
 
